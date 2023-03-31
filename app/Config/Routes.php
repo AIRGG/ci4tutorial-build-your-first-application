@@ -35,8 +35,12 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
-$routes->get('news/create', [News::class, 'create']);
-$routes->post('news/create', [News::class, 'create']);
+
+$routes->get('news/create', [News::class, 'create']); //  nampilin formnya
+$routes->post('news/create', [News::class, 'create']); // prpses create
+$routes->get('news/delete/(:segment)', [News::class, 'deleteData']); // proses delete
+$routes->get('news/edit/(:segment)', [News::class, 'editData']); // nampilin form edit
+$routes->post('news/edit/(:segment)', [News::class, 'editData']); // proses edit
 
 
 

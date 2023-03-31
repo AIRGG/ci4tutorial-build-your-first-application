@@ -15,4 +15,5 @@
     <br>
 
     <input type="submit" name="submit" value="Create news item">
+    <a href="/news">Kembali</a>
 </form>

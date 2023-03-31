@@ -90,4 +90,38 @@ class News extends BaseController
             . view('news/success')
             . view('templates/footer');
     }
+
+    public function deleteData($idnya = null) {
+        print_r($idnya);
+        $model = model(NewsModel::class);
+        $model->delete($idnya);
+        // return view('templates/header', ['title' => 'Success Delete'])
+        //     . view('news/success')
+        //     . view('templates/footer');
+        return redirect()->route('news');
+    }
+
+    public function editData($idnya = null) {
+        helper('form');
+
+        $model = model(NewsModel::class);
+        if (! $this->request->is('post')) {
+            $data['news'] = $model->where(['id' => $idnya])->first();
+            print_r($data);
+            return view('templates/header', ['title' => 'Edit a news item'])
+                . view('news/edit', ['data' => $data['news']])
+                . view('templates/footer');
+        }
+
+        $post = $this->request->getPost(['title', 'body']);
+        $model->update($idnya, [
+            'title' => $post['title'],
+            'slug'  => url_title($post['title'], '-', true),
+            'body'  => $post['body'],
+        ]);
+        // $model = model(NewsModel::class);
+        // $model->update($idnya);
+        return redirect()->route('news');
+
+    }
 }
