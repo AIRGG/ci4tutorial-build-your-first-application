@@ -19,7 +19,7 @@
             <td>
                 <a href="/news/<?= esc($news_item['slug'], 'url') ?>">View</a>
                 <a href="/news/edit/<?= esc($news_item['id'], 'url') ?>">Edit</a>
-                <a href="/news/delete/<?= esc($news_item['id']) ?>">Delete</a>
+                <a onclick="return confirm('Yakin??')" href="/news/delete/<?= esc($news_item['id']) ?>">Delete</a>
             </td>
         </tr>
     <?php endforeach ?>
