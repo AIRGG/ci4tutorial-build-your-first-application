@@ -6,7 +6,7 @@ use App\Models\NewsModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class News extends BaseController
-{ 
+{
     //two methods, one to view all news items, and one for a specific news item
     // public function index()
     // {
@@ -107,7 +107,7 @@ class News extends BaseController
         $model = model(NewsModel::class);
         if (! $this->request->is('post')) {
             $data['news'] = $model->where(['id' => $idnya])->first();
-            print_r($data);
+            // print_r($data);
             return view('templates/header', ['title' => 'Edit a news item'])
                 . view('news/edit', ['data' => $data['news']])
                 . view('templates/footer');

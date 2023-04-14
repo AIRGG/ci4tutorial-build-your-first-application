@@ -15,6 +15,6 @@
     <textarea name="body" cols="45" rows="4"><?= set_value('body') ?><?= $data['body'] ?></textarea>
     <br>
 
-    <input type="submit" name="submit" value="Edit item">
+    <input class="btn btn-primary" type="submit" name="submit" value="Edit item">
     <a href="/news">Kembali</a>
 </form>

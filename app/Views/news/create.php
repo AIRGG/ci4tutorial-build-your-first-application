@@ -14,6 +14,6 @@
     <textarea name="body" cols="45" rows="4"><?= set_value('body') ?></textarea>
     <br>
 
-    <input type="submit" name="submit" value="Create news item">
+    <input class="btn btn-primary" type="submit" name="submit" value="Create news item">
     <a href="/news">Kembali</a>
 </form>
