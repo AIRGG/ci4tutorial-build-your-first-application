@@ -8,11 +8,11 @@
 
     <label for="title">Title</label>
     <!-- <?php print_r($data) ?> -->
-    <input type="input" name="title" value="<?= set_value('title') ?><?= $data['title'] ?>">
+    <input class="form-control" type="input" name="title" value="<?= set_value('title') ?><?= $data['title'] ?>">
     <br>
 
     <label for="body">Text</label>
-    <textarea name="body" cols="45" rows="4"><?= set_value('body') ?><?= $data['body'] ?></textarea>
+    <textarea class="form-control" name="body" cols="45" rows="4"><?= set_value('body') ?><?= $data['body'] ?></textarea>
     <br>
 
     <input class="btn btn-primary" type="submit" name="submit" value="Edit item">
