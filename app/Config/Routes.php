@@ -49,6 +49,8 @@ $routes->get('news', [News::class, 'index']);
 $routes->get('pages', [Pages::class, 'index']);
 $routes->get('(:segment)', [Pages::class, 'view']);
 
+$routes->get('images/(:segment)', [News::class, 'showFile']);
+
 
 
 /*

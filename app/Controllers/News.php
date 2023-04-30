@@ -52,6 +52,23 @@ class News extends BaseController
             . view('news/view')
             . view('templates/footer');
     }
+    public function showFile($filename = '')
+    {
+        if($filename == ''){
+            dd('');
+        }
+        helper("filesystem");
+        $path = WRITEPATH . 'uploads/';
+
+        $fullpath = $path . $filename;
+        $file = new \CodeIgniter\Files\File($fullpath, true);
+        $binary = readfile($fullpath);
+        return $this->response
+                ->setHeader('Content-Type', $file->getMimeType())
+                ->setHeader('Content-disposition', 'inline; filename="' . $file->getBasename() . '"')
+                ->setStatusCode(200)
+                ->setBody($binary);
+    }
 
     public function create()
     {
@@ -78,12 +95,28 @@ class News extends BaseController
                 . view('templates/footer');
         }
 
+        $img = $this->request->getFile('image');
+        // print_r($img);
+        // print_r($img->getSize());
+        // print_r($img->getName());
+        $imgName = '';
+        if($img->getSize() > 0) {
+            $imgName = $img->getRandomName();
+            $img->move(WRITEPATH . 'uploads', $imgName);
+            // $filepath = WRITEPATH . 'uploads/' . $img->store();
+            // print_r('---------------');
+        }
+        // print_r($imgName);
+        // dd($img);
+        // dd($imgName);
+
         $model = model(NewsModel::class);
 
         $model->save([
             'title' => $post['title'],
             'slug'  => url_title($post['title'], '-', true),
             'body'  => $post['body'],
+            'img'  => $imgName,
         ]);
 
         return view('templates/header', ['title' => 'Create a news item'])
@@ -113,11 +146,24 @@ class News extends BaseController
                 . view('templates/footer');
         }
 
+        $img = $this->request->getFile('image');
+        $imgName = $this->request->getPost('image-old');
+        $cekDelete = $this->request->getPost('image-delete');
+        // jika diganti gambar dan bukan delete image
+        if($img->getSize() > 0 && $cekDelete != 'yes') {
+            $imgName = $img->getRandomName();
+            $img->move(WRITEPATH . 'uploads', $imgName);
+        }
+        if($cekDelete == 'yes') {
+            $imgName = '';
+        }
+
         $post = $this->request->getPost(['title', 'body']);
         $model->update($idnya, [
             'title' => $post['title'],
             'slug'  => url_title($post['title'], '-', true),
             'body'  => $post['body'],
+            'img'  => $imgName,
         ]);
         // $model = model(NewsModel::class);
         // $model->update($idnya);
