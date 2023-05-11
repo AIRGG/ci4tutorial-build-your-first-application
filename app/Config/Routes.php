@@ -3,9 +3,7 @@
 namespace Config;
 use App\Controllers\News;
 use App\Controllers\Pages;
-
-
-
+use App\Controllers\PostController;
 
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
@@ -51,6 +49,20 @@ $routes->get('(:segment)', [Pages::class, 'view']);
 
 $routes->get('images/(:segment)', [News::class, 'showFile']);
 
+/*
+ * --------------------------------------------------------------------
+ * Route POSTS - AJAX
+ * --------------------------------------------------------------------
+ */
+$routes->get('post/index', [PostController::class, 'index']);
+$routes->post('post/add', [PostController::class, 'add']);
+$routes->get('post/fetch', [PostController::class, 'fetch']);
+$routes->get('post/edit/(:num)', [PostController::class, 'edit/$1']);
+$routes->get('post/delete/(:num)', [PostController::class, 'delete/$1']);
+$routes->get('post/detail/(:num)', [PostController::class, 'detail/$1']);
+$routes->post('post/update', [PostController::class, 'update']);
+$routes->get('images/posts/(:segment)', [PostController::class, 'showFile']);
+$routes->get('post/token', [PostController::class, 'getToken']);
 
 
 /*
